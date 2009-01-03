@@ -4,12 +4,9 @@
 <head>
   <title>New TV</title>
 
-  <link rel="stylesheet" href="css/jquery-ui-themeroller.css"/>
   <link rel="stylesheet" href="css/style.css"/>
   
   <script type="text/javascript" src="js/jquery.js"></script>
-  <!--<script type="text/javascript" src="js/jquery-ui.js"></script>
-  <script type="text/javascript" src="js/autocomplete.js"></script>-->
   <script type="text/javascript" src="js/script.js"></script>
 </head>
 
