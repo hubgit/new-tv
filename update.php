@@ -1,13 +1,13 @@
 <?php
-
-if (!$_ENV['TERM']) exit(); // command line only
+//print_r($_ENV); exit();
+if ($_ENV['_'] != '/usr/bin/php') exit(); // command line only
 
 require 'db.inc.php';
 require 'functions.inc.php';
 
-//foreach (range(31,0) as $day){
-  //$date = date('Y/m/d', time() - (60*60*24*$day));
-  $date = date('Y/m/d');
+foreach (range(1,0) as $day){
+  $date = date('Y/m/d', time() - (60*60*24*$day));
+  //$date = date('Y/m/d');
 
   $channels = array(
     "http://www.bbc.co.uk/bbcone/programmes/schedules/london/$date.json",
@@ -42,4 +42,4 @@ require 'functions.inc.php';
       );
     }
   }
-//}
+}
