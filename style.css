@@ -1,0 +1,12 @@
+html, body { height: 100%; overflow: hidden; background:#000; color:#fff;}
+a { color:#ccf; text-decoration:none; }
+* { margin: 0; padding: 0; }
+ul { list-style-type:none; }
+#sidebar { float:left; width: 40%; height:90%; overflow:auto; }
+#player { float:left; width: 60%; height: 90%; padding: 10px; }
+#sidebar li { margin: 0 10px 10px; }
+.synopsis { text-decoration: none; color: inherit; }
+a img { border: none; padding: 0 5px 10px; }
+.type { text-align: right;}
+.type li { display: inline; margin-right: 10px; padding: 5px 10px; }
+#sidebar li div { float: left; }
