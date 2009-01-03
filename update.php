@@ -1,5 +1,7 @@
 <?php
 
+if (!$_ENV['TERM']) exit(); // command line only
+
 require 'db.inc.php';
 require 'functions.inc.php';
 

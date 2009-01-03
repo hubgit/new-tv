@@ -1,67 +1,46 @@
-<?php include 'setup.inc.php'; ?>
+<?php
+require 'db.inc.php';
+require 'functions.inc.php';
+?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
 <title>New TV</title>
 <link rel="stylesheet" href="style.css">
-<script src="http://jqueryjs.googlecode.com/files/jquery-1.2.6.min.js"></script>
-<script src="script.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
+<script type="text/javascript" src="script.js"></script>
 </head>
 
 <body>
 
-<ul id="genres" class="type">
- <?php $root = $_SERVER['SCRIPT_NAME'] . '?genre='; foreach ($genres as $id => $title): ?>
-    <li>
-      <a href="<?php print $root . $id; ?>"><?php print $title; ?></a>
-    </li>
- <?php endforeach; ?>
-</ul>
-
-<ul id="formats" class="type">
- <?php $root = $_SERVER['SCRIPT_NAME'] . '?format='; foreach ($formats as $id => $title): ?>
-   <li>
-      <a href="<?php print $root . $id; ?>"><?php print $title; ?></a>
-   </li>
- <?php endforeach; ?>
-</ul>
-
 <ul id="sidebar">
   <?php
-  $data = fetch_data();
-
-  $seen = array();
-  foreach ($data->broadcasts as $broadcast):
-    //if ($broadcast->is_repeat) continue;
-      
-    $episode = $broadcast->programme;
-    if (!$episode->media) continue;
-
-    
-    if ($seen[$episode->pid]) continue;
-    else $seen[$episode->pid] = 1;
-    
-    $series = $episode->programme;
-    $brand = $series->programme;
-    ?>
+  $old_date = '';
+  $result = db_query("SELECT * FROM episodes WHERE date > %d ORDER BY date DESC LIMIT 100", time() - 60*60*24*7); // 1 week
+  while ($item = mysql_fetch_object($result)):
+  $date = getdate($item->date);
+  $date = date('Y-m-d', $item->date);
+  if ($old_date != $date):
+    $old_date = $date;
+  ?>
+  <h3 class="date"><?php print $date; ?></h3> 
+  <?php endif; ?>
      <li>
-       <!-- 640x360 -->
        <div class="meta">
-         <a class="player" style="float:left" href="http://www.bbc.co.uk/emp/9player.swf?config=http://www.bbc.co.uk/emp/iplayer/config.xml&config_settings_skin=silver&config_settings_suppressRelatedLinks=true&config_plugin_autoResumePlugin_recentlyPlayed=false&playlist=http://www.bbc.co.uk/iplayer/playlist/<?php print $episode->pid; ?>"><img align="left" src="http://www.bbc.co.uk/iplayer/images/episode/<?php print $episode->pid; ?>_150_84.jpg"></a>
+         <a class="player" type="application/x-shockwave-flash" href="http://www.bbc.co.uk/emp/9player.swf?config=http://www.bbc.co.uk/emp/iplayer/config.xml&amp;config_settings_skin=silver&amp;config_settings_suppressRelatedLinks=true&amp;config_plugin_autoResumePlugin_recentlyPlayed=false&amp;playlist=http://www.bbc.co.uk/iplayer/playlist/<?php print $item->episode; ?>"><img align="left" src="http://www.bbc.co.uk/iplayer/images/episode/<?php print $item->episode; ?>_150_84.jpg"></a> <!-- also 640x360 -->
          
-         <?php if ($episode->programme->programme): ?>
-           <a href="<?php print 'http://www.bbc.co.uk/programmes/' . $brand->pid; ?>" class="brand"><?php print $brand->title; ?></a>: 
-           <a href="<?php print 'http://www.bbc.co.uk/programmes/' . $series->pid; ?>" class="series"><?php printf('s%02d', $series->position); ?></a>
-           <a href="<?php print 'http://www.bbc.co.uk/programmes/' . $episode->pid; ?>" class="episode"><?php printf('e%02d', $episode->position); ?></a>
-         <?php else: ?>
-           <a href="<?php print 'http://www.bbc.co.uk/programmes/' . $episode->pid; ?>"><?php print $episode->display_titles->title; ?><?php if ($episode->display_titles->subtitle) print ': ' . $episode->display_titles->subtitle; ?></a>
+         <a href="<?php print 'http://www.bbc.co.uk/programmes/' . $item->series; ?>"><?php print $item->title; ?></a>: 
+         <?php if ($item->subtitle): ?>  
+           <a href="<?php print 'http://www.bbc.co.uk/programmes/' . $item->episode; ?>"><?php print $item->subtitle; ?></a>
          <?php endif; ?>
          <br>
-         <a class="synopsis" href="<?php print 'http://www.bbc.co.uk/programmes/' . $episode->pid; ?>"><?php print $episode->short_synopsis; ?></a>
+         <a class="synopsis"><?php print $item->synopsis; ?></a><br>
+         <!--<object class="download" type="application/x-shockwave-flash" data="http://www.bbc.co.uk/iplayer/dm/iplayer_download_badge.swf?playlist=http://www.bbc.co.uk/iplayer/playlist/b00gqgtw&amp;flashVersionRequired=10.0.15&amp;electraVersionRequired=0.6.1463&amp;pid=b00gqgtw&amp;playItem=b00gqfsv&amp;debugging=on&amp;labelText=To%20Computer"></object>-->
        </div>
      </li>
-  <?php endforeach; ?>
+  <?php endwhile; ?>
 </ul>
 
-<object id="player" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" wmode="default" quality="high" bgcolor="#000"></object>
+<object id="player" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" wmode="default" quality="high" bgcolor="#000000">You need to install Flash Player.</object>
 
 </body>
