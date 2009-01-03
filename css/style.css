@@ -10,3 +10,19 @@ a img { border: none; padding: 0 5px 10px; }
 #sidebar li div { float: left; }
 h3.date { float:left; clear:both; margin: 10px 0; }
 .download { height: 24px; width: 174px; }
+
+div.hidden {
+  visibility:hidden;
+  height:0;
+}
+
+a img {
+  border: none;
+}
+
+a:hover {
+  background-color: #c60 !important;
+  color: #fff;
+}
+
+

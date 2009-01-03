@@ -2,8 +2,7 @@
 //print_r($_ENV); exit();
 if ($_ENV['_'] != '/usr/bin/php') exit(); // command line only
 
-require 'db.inc.php';
-require 'functions.inc.php';
+require_once 'includes/functions.inc.php';
 
 foreach (range(1,0) as $day){
   $date = date('Y/m/d', time() - (60*60*24*$day));
@@ -43,3 +42,5 @@ foreach (range(1,0) as $day){
     }
   }
 }
+
+print "updated\n";
