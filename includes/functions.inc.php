@@ -40,9 +40,9 @@ function format_episode($item){
      <div class="meta">
        <a class="player" type="application/x-shockwave-flash" href="http://www.bbc.co.uk/emp/9player.swf?config=http://www.bbc.co.uk/emp/iplayer/config.xml&amp;config_settings_skin=silver&amp;config_settings_suppressRelatedLinks=true&amp;config_plugin_autoResumePlugin_recentlyPlayed=false&amp;playlist=http://www.bbc.co.uk/iplayer/playlist/<?php print $item->episode; ?>"><img align="left" src="http://www.bbc.co.uk/iplayer/images/episode/<?php print $item->episode; ?>_150_84.jpg"></a> <!-- also 640x360 -->
        
-       <a href="<?php print 'http://www.bbc.co.uk/programmes/' . $item->series; ?>"><?php print $item->title; ?></a>: 
+       <a href="<?php print 'http://www.bbc.co.uk/programmes/' . ($item->series ? $item->series : $item->episode); ?>"><?php print $item->title; ?></a> 
        <?php if ($item->subtitle): ?>  
-         <a href="<?php print 'http://www.bbc.co.uk/programmes/' . $item->episode; ?>"><?php print $item->subtitle; ?></a>
+         : <a href="<?php print 'http://www.bbc.co.uk/programmes/' . $item->episode; ?>"><?php print $item->subtitle; ?></a>
        <?php endif; ?>
        <br>
        <span class="synopsis"><?php print $item->synopsis; ?><span>

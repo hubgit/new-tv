@@ -8,10 +8,10 @@
 
 <?php
 if ($_REQUEST['q'])
-  $result = db_query("SELECT * FROM episodes WHERE MATCH (title, subtitle, synopsis) AGAINST ('%s') LIMIT %d", $_REQUEST['q'], array_key_exists('n', $_REQUEST) ? $_REQUEST['n'] : 50);
+  $result = db_query("SELECT * FROM episodes WHERE MATCH (title, subtitle, synopsis) AGAINST ('%s') ORDER BY date DESC LIMIT %d", $_REQUEST['q'], array_key_exists('n', $_REQUEST) ? $_REQUEST['n'] : 50);
 else
-  $result = db_query("SELECT * FROM episodes WHERE date > %d ORDER BY date DESC LIMIT 10", time() - 60*60*24*7); // 1 week
-
+  $result = db_query("SELECT * FROM episodes ORDER BY date DESC LIMIT 50");
+  
 while ($item = mysql_fetch_object($result))
   format_episode($item);
 

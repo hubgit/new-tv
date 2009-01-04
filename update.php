@@ -17,8 +17,7 @@ foreach (range(1,0) as $day){
 
   foreach ($channels as $channel){
     debug($channel);
-    $json = file_get_contents($channel);
-    $data = json_decode($json);
+    $data = json_decode(file_get_contents($channel));
     
     foreach ($data->schedule->day->broadcasts as $broadcast){
       if ($broadcast->is_repeat) continue;
@@ -26,6 +25,8 @@ foreach (range(1,0) as $day){
       $episode = $broadcast->programme;
       if (!$episode->media) continue;
       
+      $series = '';
+      $brand = '';
       if ($episode->programme) {
         $series = $episode->programme;
         if ($series->programme)
