@@ -1,0 +1,38 @@
+html, body { margin: 0; body: 0; }
+body { font-family: sans-serif; }
+
+nav { display: table; width: 100%; border-collapse: collapse; border-bottom: 1px solid #ddd; }
+nav a { display: table-cell; text-align: center; padding: 10px; background: #000; color: #fff; width: 50%; border-left: 1px solid #fff; }
+nav a:first-child { border-left: none; }
+nav a:hover { background: #666; }
+
+table { border-collapse: collapse; width: 100%; }
+tr { border-bottom: 1px solid #eee; }
+tr.episode:nth-child(even) { background-color: #f6f6f6; }
+
+colgroup { border-left: 1px solid #eee; }
+colgroup:first-child { border-left: none; }
+
+td a { display: block; }
+td a { display: block; }
+
+tbody tr { cursor: pointer; }
+td a:hover, tbody tr:hover { background: #eee !important; }
+
+ol, ul { list-style-type: none; padding-left: none; }
+
+a { text-decoration: none; color: inherit; }
+a img { border: none; }
+
+.date { padding: 10px; }
+
+.synopsis, .subtitle { color: #777; }
+.series { color: #bbb; }
+
+.episode { background-color: #eef; }
+.single { background-color: #fff; }
+.new-series { background-color: #ff0 !important; }
+
+.thumbnail { width: 190px; }
+.thumbnail a { padding: 5px 20px; }
+

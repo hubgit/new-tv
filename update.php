@@ -1,11 +1,11 @@
 <?php
 //print_r($_ENV); exit();
-if ($_ENV['_'] != '/usr/bin/php') exit(); // command line only
+//if ($_ENV['_'] != '/usr/bin/php') exit(); // command line only
 
-require_once 'includes/functions.inc.php';
+require dirname(__FILE__) . '/main.php';
 
 foreach (range(1,0) as $day){
-  $date = date('Y/m/d', time() - (60*60*24*$day));
+  $date = date('Y/m/d', time() - (60*60*24*$day)); // yesterday's and today's listings
   //$date = date('Y/m/d');
 
   $channels = array(
@@ -17,7 +17,7 @@ foreach (range(1,0) as $day){
 
   foreach ($channels as $channel){
     debug($channel);
-    $data = json_decode(file_get_contents($channel));
+    $data = json_decode($api->get_data($channel, NULL, 'raw'));
     
     foreach ($data->schedule->day->broadcasts as $broadcast){
       if ($broadcast->is_repeat) continue;
@@ -25,20 +25,16 @@ foreach (range(1,0) as $day){
       $episode = $broadcast->programme;
       if (!$episode->media) continue;
       
-      $series = '';
-      $brand = '';
-      if ($episode->programme) {
+      $series = new stdClass;
+      if ($episode->programme)
         $series = $episode->programme;
-        if ($series->programme)
-          $brand = $series->programme;
-      }
           
-      db_query(
+      $db->query(
       "INSERT IGNORE INTO episodes 
-      (date, episode, series, position, title, subtitle, synopsis) 
+      (`date`, episode, series, position, series_position, series_total, title, subtitle, synopsis) 
       VALUES 
-      (%d, '%s', '%s', %d, '%s', '%s', '%s')", 
-      strtotime($broadcast->start), $episode->pid, $series->pid, $episode->position, $episode->display_titles->title, $episode->display_titles->subtitle, $episode->short_synopsis
+      (%d, '%s', '%s', %d, %d, %d, '%s', '%s', '%s')", 
+      strtotime($broadcast->start), $episode->pid, $series->pid, $episode->position, $series->position, $series->expected_child_count, $episode->display_titles->title, $episode->display_titles->subtitle, $episode->short_synopsis
       );
     }
   }
