@@ -1,38 +1,61 @@
 html, body { margin: 0; body: 0; }
-body { font-family: sans-serif; }
+body { font-family: Helvetica, sans-serif; font-size: 14px; }
 
-nav { display: table; width: 100%; border-collapse: collapse; border-bottom: 1px solid #ddd; }
-nav a { display: table-cell; text-align: center; padding: 10px; background: #000; color: #fff; width: 50%; border-left: 1px solid #fff; }
+/* nav a  { -moz-box-shadow:0 0 5px 5px #FFFFFF inset, 0 -25px 25px -5px #AAAAAA inset; -webkit-box-shadow:0 0 5px 5px #FFFFFF inset, 0 -25px 25px -5px #AAAAAA inset; } */
+
+nav { display: table; width: 100%; border-collapse: collapse; border-bottom:1px solid #ccc; background:#ddd; }
+
+nav a  {
+  border-left: 1px solid #ccc;
+  color:#777;
+  display:table-cell;
+  padding: 10px;
+  text-align:center;
+  text-shadow:0 0 5px #bbb;
+  vertical-align:middle;
+  width:50%;
+  font-family: "Helvetica", sans-serif;
+  font-weight: bold;
+}
+
 nav a:first-child { border-left: none; }
-nav a:hover { background: #666; }
+nav a:hover { color: #444; }
+
+#back { text-align: left; }
 
 table { border-collapse: collapse; width: 100%; }
-tr { border-bottom: 1px solid #eee; }
-tr.episode:nth-child(even) { background-color: #f6f6f6; }
+
+td { padding: 10px; vertical-align: top; }
 
 colgroup { border-left: 1px solid #eee; }
 colgroup:first-child { border-left: none; }
 
 td a { display: block; }
-td a { display: block; }
 
-tbody tr { cursor: pointer; }
-td a:hover, tbody tr:hover { background: #eee !important; }
+.episode { cursor: pointer; background-color: #eef; color: #666; border-top: 1px solid #B4B4B4; }
+.episode:hover { background: #eee !important; }
+
+.meta { padding-left: 0; }
 
 ol, ul { list-style-type: none; padding-left: none; }
 
 a { text-decoration: none; color: inherit; }
 a img { border: none; }
 
-.date { padding: 10px; }
+.date { font-weight: bold; }
+
+h1, h2, h3 { margin: 0; }
+
+.title { color: black; }
+.title, .synopsis { font-weight: bold; }
 
 .synopsis, .subtitle { color: #777; }
 .series { color: #bbb; }
 
-.episode { background-color: #eef; }
 .single { background-color: #fff; }
 .new-series { background-color: #ff0 !important; }
 
-.thumbnail { width: 190px; }
-.thumbnail a { padding: 5px 20px; }
+.thumbnail { width: 150px; }
+
+#search { margin: 10px; }
 
