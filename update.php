@@ -17,7 +17,7 @@ foreach (range(1,0) as $day){
 
   foreach ($channels as $channel){
     debug($channel);
-    $data = json_decode($api->get_data($channel, NULL, 'raw'));
+    $data = $api->get_data($channel, NULL, 'json');
     
     foreach ($data->schedule->day->broadcasts as $broadcast){
       if ($broadcast->is_repeat) continue;
