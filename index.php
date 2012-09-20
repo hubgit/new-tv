@@ -55,7 +55,7 @@ $iplayer = 'http://www.bbc.co.uk/iplayer/episode/';
 <? $link = $iplayer . $item->episode; ?>
 
 <? if ($old_date != $date): $old_date = $date; ?>
-    <li>
+    <li class="date">
       <h2 class=date><? h($date); ?></h2>
     </li>
 <? endif; ?>
@@ -92,7 +92,7 @@ $iplayer = 'http://www.bbc.co.uk/iplayer/episode/';
         url: $(this).attr("href"),
         datatype: "html",
         success: function(data){
-          var episodes = $("li.episode", data);
+          var episodes = $("li.date,li.episode", data);
 		if (!episodes.length) {
 			$("#more").hide();
 			return;
