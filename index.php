@@ -24,6 +24,7 @@ $iplayer = 'http://www.bbc.co.uk/iplayer/episode/';
 ?>
 <html>
 <head>
+  <meta charset="utf-8">
   <title>New TV</title>
   <link rel=stylesheet href=style.css?1>
   <link rel=apple-touch-icon href=icon.png>
