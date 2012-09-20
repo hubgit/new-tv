@@ -40,14 +40,17 @@ $iplayer = 'http://www.bbc.co.uk/iplayer/episode/';
     <a href=./><h1>New TV</h1></a>
   </nav>
 
+  <div class="intro">TV episodes broadcast for the first time on BBC iPlayer</div>
+
   <form id=search>
-    <input name=q size=30 value="<? h($q); ?>"> <input type=submit value=search>
+    <input name=q value="<? h($q); ?>" placeholder="Search">
+    <!--<input type=submit value=search>-->
   </form>
 
   <ol id=programmes>
 <? while ($item = mysql_fetch_object($result)): ?>
 <? foreach ($ignores as $ignore) if (preg_match("/\b$ignore\b/i", $item->title)) continue(2); ?>
-<? $date = date('Y-m-d', $item->date); ?>
+<? $date = date('j F Y', $item->date); ?>
 <? $link = $iplayer . $item->episode; ?>
 
 <? if ($old_date != $date): $old_date = $date; ?>
@@ -75,7 +78,7 @@ $iplayer = 'http://www.bbc.co.uk/iplayer/episode/';
   </ol>
 
   <nav>
-    <a id=more rel=next href="./?page=<? h($page + 1); ?>">More</a>
+    <a id=more rel=next href="./?q=<? h($q); ?>&page=<? h($page + 1); ?>">More</a>
   </nav>
 
   <script src=/jquery.js></script>
@@ -88,7 +91,12 @@ $iplayer = 'http://www.bbc.co.uk/iplayer/episode/';
         url: $(this).attr("href"),
         datatype: "html",
         success: function(data){
-          $("li.episode", data).appendTo("#programmes");
+          var episodes = $("li.episode", data);
+		if (!episodes.length) {
+			$("#more").hide();
+			return;
+		}
+          episodes.appendTo("#programmes");
           $("#more").attr("href", $("#more", data).attr("href"));
           $("#more").bind("inview", loadMore).html("More");
         },

@@ -2,29 +2,39 @@
 #programmes > li > * { display: table-cell; padding: 10px; vertical-align: top; }
 #programmes > li { display: table-row; }
 #programmes { display: table; border-collapse: collapse; width: 100%; margin: 0; }
-#search { margin: 10px; }
-.episode { cursor: pointer; background-color: #eef; color: #666; border-top: 1px solid #B4B4B4; }
-.episode:hover { background: #eee !important; }
+#search { margin: 10px 0; width: 100%; }
+#search [name=q] { width: 90%; box-sizing: border-box; margin: 0 10px; }
+#search input { padding: 5px; }
+.episode { border-left: 20px solid transparent; cursor: pointer; color: #666; }
+.episode:hover { border-color: #77f; }
 h2 { margin: 10px; font-size: 120%; }
 .meta { padding-left: 0 !important; }
 .meta a { display: block; }
-.new-series { background-color: #ff0 !important; }
+.new-series { border-color: #f77; }
+.new-series .title { font-weight: bold; }
 .series { color: #bbb; }
-.single { background-color: white; }
+.single { }
 .synopsis, .subtitle { color: #777; }
 .thumbnail { width: 150px; }
+.thumbnail img {
+	box-shadow: 0 1px 5px black;
+}
 .title { color: black; }
-.title, .synopsis { font-weight: bold; }
+.title { font-weight: bold; }
 /* nav a  { -moz-box-shadow:0 0 5px 5px #FFFFFF inset, 0 -25px 25px -5px #AAAAAA inset; -webkit-box-shadow:0 0 5px 5px #FFFFFF inset, 0 -25px 25px -5px #AAAAAA inset; } */
 a img { border: none; }
 a { text-decoration: none; color: inherit; }
 body { font-family: Helvetica, sans-serif; font-size: 14px; }
 h1 { margin: 0; }
-html, body { margin: 0; body: 0; }
-nav a { border-left: 1px solid #ccc; color:#777; display:table-cell; padding: 10px; text-align:center; text-shadow:0 0 3px #bbb; vertical-align:middle; font-family: "Helvetica", sans-serif; font-weight: bold; }
+html, body { margin: 0; padding: 0; }
+nav a { border-left: 1px solid #ccc; color:#1a44c7; display:table-cell; padding: 10px; vertical-align:middle; font-family: "Helvetica", sans-serif; font-weight: bold; }
 nav a { width:50%; }
 nav a:first-child { border-left: none; }
-nav a:hover { color: #444; }
-nav a:focus { outline: none; background-color: blue; color: white; }
-nav { display: table; width: 100%; border-collapse: collapse; border-bottom:1px solid #ccc; background:#ddd; }
+nav a:hover { color: #77f; }
+nav a:focus { outline: none; }
+nav { display: table; width: 100%; border-collapse: collapse;}
 ol, ul { list-style-type: none; padding-left: none; }
+.intro {
+	color: #777;
+	padding: 0 10px;
+}
