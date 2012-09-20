@@ -75,15 +75,32 @@ $iplayer = 'http://www.bbc.co.uk/iplayer/episode/';
   </ol>
 
   <nav>
-    <a id=more href="./?page=<? h($page + 1); ?>">More</a>
+    <a id=more rel=next href="./?page=<? h($page + 1); ?>">More</a>
   </nav>
 
   <script src=/jquery.js></script>
+  <script src=/js/jquery/jquery.inview/jquery.inview.min.js></script>
   <script>
+    function loadMore(e, isInView, visiblePartX, visiblePartY){
+      if (!isInView) return false;
+      $("#more").unbind("inview").html("Loading&hellip;");
+      $.ajax({
+        url: $(this).attr("href"),
+        datatype: "html",
+        success: function(data){
+          $("li.episode", data).appendTo("#programmes");
+          $("#more").attr("href", $("#more", data).attr("href"));
+          $("#more").bind("inview", loadMore).html("More");
+        },
+      });
+    }
+    
     $().ready(function(){
       $(".episode").click(function(){
         window.location.href = $(this).find("a").attr("href");
       });
+      
+      $("#more").bind("inview", loadMore);
     });
   </script>
 </body>
