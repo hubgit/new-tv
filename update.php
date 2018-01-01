@@ -10,31 +10,24 @@ foreach (range(1,0) as $day){
   //$date = date('Y/m/d');
 
   $schedules = array(
-    'bbcone' => 'london',
-    'bbctwo' => 'england',
-    'bbcthree' => NULL,
-    'bbcfour' => NULL,
-	'cbeebies' => NULL,
+    'bbcone',
+    'bbctwo',
+    'bbcthree',
+    'bbcfour',
+	  'cbeebies',
   );
 
-  foreach ($schedules as $channel => $region){
+  foreach ($schedules as $channel){
     debug($channel);
     $api->cache = FALSE;
-    $url = "http://www.bbc.co.uk/$channel/programmes/schedules/$region/$date.json";
+    $url = "https://bbc-programmes-json.now.sh/$channel/$date.json";
     debug($url);
     $data = $api->get_data($url, NULL, 'json');
 
-    foreach ($data['schedule']['day']['broadcasts'] as $broadcast){
-      if ($broadcast['is_repeat']) continue;
+    foreach ($data as $broadcast){
+      if ($broadcast['repeat']) continue;
 
-      $episode = $broadcast['programme'];
-      if (!$episode['media']) continue;
-
-      $series = array();
-      if ($episode['programme'])
-        $series = $episode['programme'];
-
-      $image = $episode['image'];
+      // if (!$broadcast['media']) continue;
 
       $db->query(
       "INSERT IGNORE INTO episodes
@@ -42,15 +35,15 @@ foreach (range(1,0) as $day){
       VALUES
       (%d, '%s', '%s', '%s', %d, %d, %d, '%s', '%s', '%s')",
       strtotime($broadcast['start']),
-      $episode['pid'],
-      $series['pid'],
-      $image['pid'],
-      $episode['position'],
-      $series['position'],
-      $series['expected_child_count'],
-      $episode['display_titles']['title'],
-      $episode['display_titles']['subtitle'],
-      $episode['short_synopsis']
+      $broadcast['episode']['pid'],
+      $broadcast['series']['pid'],
+      $broadcast['episode']['image'],
+      $broadcast['episode']['position'],
+      $broadcast['season']['position'],
+      $broadcast['episode']['total'],
+      $broadcast['title'],
+      $broadcast['subtitle'],
+      $broadcast['episode']['description']
       );
     }
   }
