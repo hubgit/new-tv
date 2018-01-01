@@ -20,7 +20,7 @@ foreach (range(1,0) as $day){
   foreach ($schedules as $channel){
     debug($channel);
     $api->cache = FALSE;
-    $url = "https://bbc-programmes-json.now.sh/$channel/$date.json";
+    $url = "https://bbc-programmes-json.now.sh/$channel/$date";
     debug($url);
     $data = $api->get_data($url, NULL, 'json');
 
