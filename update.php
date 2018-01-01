@@ -14,6 +14,7 @@ foreach (range(1,0) as $day){
     'bbctwo' => 'england',
     'bbcthree' => NULL,
     'bbcfour' => NULL,
+	'cbeebies' => NULL,
   );
 
   foreach ($schedules as $channel => $region){
