@@ -3,10 +3,10 @@
 require dirname(__FILE__) . '/main.php';
 
 $iplayer = 'http://www.bbc.co.uk/iplayer/episode/';
-  $agents = array('iphone', 'ipod');
+  /*$agents = array('iphone', 'ipod');
   foreach ($agents as $agent)
     if (preg_match("/\b$agent\b/i", $_SERVER['HTTP_USER_AGENT']))
-      $iplayer = 'http://www.bbc.co.uk/mobile/iplayer/episode/';
+      $iplayer = 'http://www.bbc.co.uk/mobile/iplayer/episode/';*/
 
   $page = $_REQUEST['page'] ? (int) $_REQUEST['page'] : 1;
 
